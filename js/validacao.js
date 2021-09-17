@@ -23,8 +23,6 @@ function validaDataNascimento(input){
 function maiorQue18(data){
     const dataAtual = new Date();
     const dataMais18 = new Date(data.getUTCFullYear() + 18, data.getUTCMonth(), data.getUTCDate()); //Passando no formato americano ano mês dia
-    console.log(dataMais18);
-
 
     return dataMais18 <= dataAtual;
 }
