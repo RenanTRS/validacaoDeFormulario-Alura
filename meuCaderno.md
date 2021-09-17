@@ -15,3 +15,32 @@ Regex usada ```^(?=.*[a-z])(?=.*[A-Z])(?.=*[0-9])(?!.*[!@#$%^&*_=+-]).{6,12}$```
 - ```?!``` Não permite a presença de certos caracteres;  
 - Uso do atributo **pattern=" "** para colocar uma regex;  
 - Uso do atributo **title=" "**;  
+---
+
+# Aula02 - Validações customizadas
+## Lógica para validar data de nascimento:  
+- Uso do atributo **type="date"**
+- Para pegar a data de hoje basta criar um objeto sem parâmetro:  
+```
+const data = new Date();
+```
+- Para colocar um valor no formato de data:  
+```
+const data = new Date(input.value);
+```
+- Mudar posições da data (formato americano):  
+```
+(data)=>{
+		const data = new Date(data.getUTCFullYear(), data.getUTCMonth(), data.getUTCDate());
+
+}
+```
+- Evento **blur** para quando perde o foco;
+- Colocar mensagem de validação de input:  
+```
+input.setCustomValidity(mensagem);
+```
+## Melhorando o código:  
+- Uso do data-atributes;  
+- Criar uma função genérica para pegar todos os inputs:  
+- Criar um objeto de funções anônimas que chamam o tratamento para o input;
