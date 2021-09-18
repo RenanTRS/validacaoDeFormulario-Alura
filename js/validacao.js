@@ -2,13 +2,22 @@ export function valida(input){
     const tipoInput = input.dataset.tipo;
     if(validadores[tipoInput]){
         validadores[tipoInput](input);
+        input.parentElement.querySelector('.input-mensagem-erro').innerHTML = '';
     }
     if(input.validity.valid){
         input.parentElement.classList.remove('input-container--invalido');
     } else{
         input.parentElement.classList.add('input-container--invalido');
+        input.parentElement.querySelector('.input-mensagem-erro').innerHTML = mostraMensagemErro(tipoInput, input);
     }
 }
+
+const tipoErro = [
+    'valueMissing',
+    'typeMismatch',
+    'patternMismatch',
+    'customError'
+];
 
 const mensagensDeErro = {
     nome: {
@@ -31,6 +40,16 @@ const mensagensDeErro = {
 const validadores = {
     //Objeto contendo funçoes anônimas para validar inputs
     dataNascimento: (input)=>{validaDataNascimento(input)}
+}
+
+function mostraMensagemErro(tipoInput, input){
+    let mensagem = '';
+    tipoErro.forEach((erro)=>{
+        if(input.validity[erro]){
+            mensagem = mensagensDeErro[tipoInput][erro];
+        }
+    })
+    return mensagem;
 }
 
 function validaDataNascimento(input){
