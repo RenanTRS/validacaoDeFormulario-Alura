@@ -80,7 +80,7 @@ function validaCPF(input){
 
     let mensagem = '';
     
-    if(!checaCPFRepetido(cpfFormatado)){
+    if(!checaCPFRepetido(cpfFormatado) || !checaEstruturaCPF(cpfFormatado)){
         //Enquando a mensagem não for vazia, o atributo required não deixará passar
         mensagem = 'O CPF não é válido';
     }
@@ -111,4 +111,34 @@ function checaCPFRepetido(cpf){
     });
 
     return cpfValido;
+}
+
+function checaEstruturaCPF(cpf){
+    const multiplicador = 10;
+    return checaDigitoVerificador(cpf, multiplicador);
+}
+
+function confirmaDigito(soma){
+    return 11 - (soma % 11);
+}
+
+function checaDigitoVerificador(cpf, multiplicador){
+    if (multiplicador >= 12){
+        return true;
+    }
+
+    let multiplicadorInicial = multiplicador;
+    let soma = 0;
+    const cpfSemDigitos = cpf.substr(0, multiplicador - 1).split(''); //.substr fatia a string, .split('') vai colocar cada número como um elemento de vetor
+    const digitoVerificador = cpf.charAt(multiplicador - 1); //.charAt vai pegar a string na posição indicada;
+    for(let contador = 0; multiplicadorInicial > 1; multiplicadorInicial--){
+        soma += cpfSemDigitos[contador] * multiplicadorInicial;
+        contador++;
+    }
+
+    if(digitoVerificador == confirmaDigito(soma)){
+        return checaDigitoVerificador(cpf, multiplicador + 1);
+    }
+    
+    return false;
 }
