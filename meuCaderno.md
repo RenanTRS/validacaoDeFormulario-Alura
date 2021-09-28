@@ -44,3 +44,18 @@ input.setCustomValidity(mensagem);
 - Uso do data-atributes;  
 - Criar uma função genérica para pegar todos os inputs:  
 - Criar um objeto de funções anônimas que chamam o tratamento para o input;
+
+# Aula 03 - Mensagens customizadas  
+## Mostrando mensagem de erro:  
+- **API**
+- Selecionar o input com o devtools e no console digitar:  
+```$0.validity```  
+	Irá mostrar um objeto com propriedades de validação para inputs, podem ser usados para fazer a validação, usando apenas o ```$0``` mostra a tag selecionada;  
+- valid "Deve ter conteúdo para ser true";  
+- valueMissing "Ainda não sei o que é";  
+- typeMismatch "Ainda não sei o que é";  
+- patternMismatch "Trabalha junto com o atributo pattern do html";  
+# Aula 04 - Validando CPF
+## Calculando a soma dos dígitos:  
+```const cpfSemDigitos = cpf.substr(0, 6).split(''); ``` Fatia a string da posição 0 até antes de chegar no 6, split serve para separar os itens em um array;  
+```const digitoVerificador = cpf.charAt(multiplicador - 1);``` .charAt serve para pegar apenas um char do array na posição específica;  
