@@ -57,7 +57,8 @@ const mensagensDeErro = {
 const validadores = {
     //Objeto contendo funçoes anônimas para validar inputs
     dataNascimento: (input)=>{validaDataNascimento(input)},
-    cpf: (input)=>{validaCPF(input)}
+    cpf: (input)=>{validaCPF(input)},
+    cep: (input)=>{recuperarCEP(input)}
 }
 
 function mostraMensagemErro(tipoInput, input){
