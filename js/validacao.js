@@ -156,3 +156,23 @@ function checaDigitoVerificador(cpf, multiplicador){
     
     return false;
 }
+
+function recuperarCEP(input){
+    const cep = input.value.replace(/\D/g, '');
+    const url = `https://viacep.com.br/ws/${cep}/json`;
+    
+    /*Ainda não sei o motivo do options*/
+    const options = {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'content-type': 'aplication/jason;charset=utf-8'
+        }
+
+    }
+
+    if(!input.validity.patternMismatch && !input.validity.valueMissing){//Impede qeu faça a requisição caso contenha esses erros
+        //Usa url da API transforma o retorno em .json e passa para um data (objeto)
+        fetch(url, options).then(response => response.json()).then(data => console.log(data));
+    }
+}
