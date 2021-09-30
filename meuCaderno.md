@@ -59,3 +59,49 @@ input.setCustomValidity(mensagem);
 ## Calculando a soma dos dígitos:  
 ```const cpfSemDigitos = cpf.substr(0, 6).split(''); ``` Fatia a string da posição 0 até antes de chegar no 6, split serve para separar os itens em um array;  
 ```const digitoVerificador = cpf.charAt(multiplicador - 1);``` .charAt serve para pegar apenas um char do array na posição específica;  
+
+# Aula 05 - Conectando com a API ViaCEP
+## Validando CEP com regex:  
+**regex:**  [\d]{5}-?[\d]{3}  
+- Adiciona a regex no atributo pattern no input para cep;
+
+## Buscando endereço pela API:  
+- Cria variavel para pegar a url: https://viacep.com.br/ws/${cep}/json
+
+## Preenchendo os campos de endereço:
+- Com o uso da DOM para pegar os campos e passar para eles os valores do objeto.  
+
+```
+const cep = input.value.replace(/\D/g, '');
+const url = `https://viacep.com.br/ws/${cep}/json`;
+
+const options = {
+	method: 'GET',
+	mode: 'cors',
+	headers: {
+		'content-type': 'aplication/jason;charset=utf-8'
+	}
+}
+
+if(!input.validity.patternMismatch && !input.validity.valueMissing){
+	fetch(url, options).then(response => response.json()).then(data => {
+		if(data.erro){
+			input.setCustomValidity('Não foi possível buscar o CEP.');
+			return;
+		}
+		input.setCustomValidity('');
+		preencheCamposComCEP(data);
+		return;
+	});
+}
+
+function preencheCamposComCEP(data){
+	const logradouro = document.querySelector('input[data-tipo="logradouro"]');
+	const cidade = document.querySelector('input[data-tipo="cidade"]');
+	const estado = document.querySelector('input[data-tipo="estado"]');
+
+	logradouro.value = data.logradouro;
+	cidade.value = data.localidade;
+	estado.value = data.uf;
+}
+```
