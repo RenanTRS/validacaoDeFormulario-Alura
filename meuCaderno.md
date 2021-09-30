@@ -105,3 +105,7 @@ function preencheCamposComCEP(data){
 	estado.value = data.uf;
 }
 ```
+
+# Aula06 - Aplicação de máscara
+## Máscara monetária:  
+- Uso da Simple mask money;  
